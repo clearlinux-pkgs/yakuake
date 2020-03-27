@@ -6,7 +6,7 @@
 #
 Name     : yakuake
 Version  : 3.0.5
-Release  : 4
+Release  : 5
 URL      : https://download.kde.org/stable/yakuake/3.0.5/src/yakuake-3.0.5.tar.xz
 Source0  : https://download.kde.org/stable/yakuake/3.0.5/src/yakuake-3.0.5.tar.xz
 Source99 : https://download.kde.org/stable/yakuake/3.0.5/src/yakuake-3.0.5.tar.xz.sig
