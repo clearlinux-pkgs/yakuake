@@ -6,11 +6,11 @@
 #
 Name     : yakuake
 Version  : 3.0.5
-Release  : 5
+Release  : 6
 URL      : https://download.kde.org/stable/yakuake/3.0.5/src/yakuake-3.0.5.tar.xz
 Source0  : https://download.kde.org/stable/yakuake/3.0.5/src/yakuake-3.0.5.tar.xz
-Source99 : https://download.kde.org/stable/yakuake/3.0.5/src/yakuake-3.0.5.tar.xz.sig
-Summary  : A drop-down terminal emulator based on KDE konsole technology
+Source1  : https://download.kde.org/stable/yakuake/3.0.5/src/yakuake-3.0.5.tar.xz.sig
+Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GFDL-1.2 GPL-2.0
 Requires: yakuake-bin = %{version}-%{release}
@@ -19,7 +19,9 @@ Requires: yakuake-license = %{version}-%{release}
 Requires: yakuake-locales = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
+BuildRequires : extra-cmake-modules-data
 BuildRequires : kglobalaccel-dev
+BuildRequires : ki18n-dev
 BuildRequires : knotifyconfig-dev
 BuildRequires : kwayland-dev
 BuildRequires : libX11-dev libICE-dev libSM-dev libXau-dev libXcomposite-dev libXcursor-dev libXdamage-dev libXdmcp-dev libXext-dev libXfixes-dev libXft-dev libXi-dev libXinerama-dev libXi-dev libXmu-dev libXpm-dev libXrandr-dev libXrender-dev libXres-dev libXScrnSaver-dev libXt-dev libXtst-dev libXv-dev libXxf86misc-dev libXxf86vm-dev
@@ -66,32 +68,34 @@ locales components for the yakuake package.
 
 %prep
 %setup -q -n yakuake-3.0.5
+cd %{_builddir}/yakuake-3.0.5
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1557050427
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604542723
 mkdir -p clr-build
 pushd clr-build
+export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1557050427
+export SOURCE_DATE_EPOCH=1604542723
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/yakuake
-cp COPYING %{buildroot}/usr/share/package-licenses/yakuake/COPYING
-cp COPYING.DOC %{buildroot}/usr/share/package-licenses/yakuake/COPYING.DOC
+cp %{_builddir}/yakuake-3.0.5/COPYING %{buildroot}/usr/share/package-licenses/yakuake/c4c1107be4f6cbb7629e3b3edfbf12cc918cddc1
+cp %{_builddir}/yakuake-3.0.5/COPYING.DOC %{buildroot}/usr/share/package-licenses/yakuake/bd75d59f9d7d9731bfabdc48ecd19e704d218e38
 pushd clr-build
 %make_install
 popd
@@ -265,8 +269,8 @@ popd
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/yakuake/COPYING
-/usr/share/package-licenses/yakuake/COPYING.DOC
+/usr/share/package-licenses/yakuake/bd75d59f9d7d9731bfabdc48ecd19e704d218e38
+/usr/share/package-licenses/yakuake/c4c1107be4f6cbb7629e3b3edfbf12cc918cddc1
 
 %files locales -f yakuake.lang
 %defattr(-,root,root,-)
