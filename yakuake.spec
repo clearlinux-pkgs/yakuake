@@ -9,7 +9,7 @@
 #
 Name     : yakuake
 Version  : 24.12.0
-Release  : 22
+Release  : 23
 URL      : https://download.kde.org/stable/release-service/24.12.0/src/yakuake-24.12.0.tar.xz
 Source0  : https://download.kde.org/stable/release-service/24.12.0/src/yakuake-24.12.0.tar.xz
 Source1  : https://download.kde.org/stable/release-service/24.12.0/src/yakuake-24.12.0.tar.xz.sig
